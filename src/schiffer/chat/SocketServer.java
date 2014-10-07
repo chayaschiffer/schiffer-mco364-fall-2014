@@ -12,17 +12,14 @@ public class SocketServer {
 	ServerSocket serverSocket = new ServerSocket(8080);
 	
 	Socket socket = serverSocket.accept();
-	PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 	BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
 	String inputLine;
 
 	ChatGUI chat = new ChatGUI();
-	out.println(chat.getText());
-	
+		
 	while ((inputLine = reader.readLine())!=null){
-		System.out.println(inputLine);
-
+		chat.setText(inputLine);
 	}
 }
 
