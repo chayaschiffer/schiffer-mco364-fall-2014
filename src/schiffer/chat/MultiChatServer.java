@@ -3,7 +3,7 @@ package schiffer.chat;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.ArrayList;                        
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -18,6 +18,7 @@ public class MultiChatServer {
 		while (true) {// multiple people connecting
 
 			Socket socket = serverSocket.accept();
+			sockets.add(socket);
 			SocketHandler handler = new SocketHandler(socket, messages);
 			handler.start();
 
