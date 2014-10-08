@@ -6,12 +6,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
 
 public class SocketHandler extends Thread {
 	private Socket s;
-	private Queue<String> messages;
+	private BlockingQueue<String> messages;
 
-	public SocketHandler(Socket s, Queue<String> messages) {
+	public SocketHandler(Socket s, BlockingQueue<String> messages) {
 		this.s = s;
 		this.messages = messages;
 	}
