@@ -7,7 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-
 import javax.swing.JComponent;
 
 public class Canvas extends JComponent {
@@ -20,6 +19,7 @@ public class Canvas extends JComponent {
 	int y1, y2;
 	BufferedImage image;
 	Color color;
+	int stroke;
 	
 	public Canvas(){
 		image = new BufferedImage(1100,600, BufferedImage.TYPE_INT_ARGB);
@@ -40,7 +40,14 @@ public class Canvas extends JComponent {
 		this.y1 = y1;
 	}
 	
-	
+	public int getStroke() {
+		return stroke;
+	}
+
+	public void setStroke(int stroke) {
+		this.stroke = stroke;
+	}
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -54,9 +61,9 @@ public class Canvas extends JComponent {
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		this.color = color;
 		g.setColor(color);
-		g.fillOval(x2, y2, 5,5);
+		g.fillOval(x2, y2, getStroke(), getStroke());
 		if(!(x1==0 && y1==0)){
-			g.setStroke(new BasicStroke(5));
+			g.setStroke(new BasicStroke(getStroke()));
 			g.drawLine(x2, y2, x1, y1);
 		}
 		this.x1=x2;
