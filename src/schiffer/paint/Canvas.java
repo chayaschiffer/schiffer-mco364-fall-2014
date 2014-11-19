@@ -7,7 +7,9 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 
 public class Canvas extends JComponent {
 
@@ -20,6 +22,8 @@ public class Canvas extends JComponent {
 	BufferedImage image;
 	Color color;
 	int stroke;
+	JLabel colorLabel;
+	JLabel strokeLabel;
 	
 	public Canvas(){
 		image = new BufferedImage(1100,600, BufferedImage.TYPE_INT_ARGB);
@@ -29,7 +33,8 @@ public class Canvas extends JComponent {
 				setY1(me.getY());
 			}
 		});
-
+		colorLabel= new JLabel();
+		strokeLabel = new JLabel();
 	}
 	
 	public void setX1(int x1){
@@ -48,6 +53,21 @@ public class Canvas extends JComponent {
 		this.stroke = stroke;
 	}
 
+	public JLabel getColorLabel() {
+		return colorLabel;
+	}
+
+	public void setColorLabel(JLabel colorLabel) {
+		this.colorLabel = colorLabel;
+	}
+
+	public JLabel getStrokeLabel() {
+		return strokeLabel;
+	}
+
+	public void setStrokeLabel(JLabel strokeLabel) {
+		this.strokeLabel = strokeLabel;
+	}
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
