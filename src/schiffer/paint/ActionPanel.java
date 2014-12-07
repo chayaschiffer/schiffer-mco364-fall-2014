@@ -51,8 +51,6 @@ public class ActionPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == clear) {
 				canvas.resetCanvas();
-				canvas.setClear(true);
-				canvas.setListener(new PencilListener(canvas));
 			} else {
 				canvas.setClear(false);
 				if (e.getSource() == pencil) {

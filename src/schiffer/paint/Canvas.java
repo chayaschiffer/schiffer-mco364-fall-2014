@@ -95,7 +95,11 @@ public class Canvas extends JComponent {
 
 	public void resetCanvas() {
 		this.image = new BufferedImage(1100, 600, BufferedImage.TYPE_INT_ARGB);
+		clear = true;
 		repaint();
+		setListener(new PencilListener(this));
+		setColor(Color.BLACK);
+		setStroke(1);
 	}
 
 	public void removeListener() {
@@ -103,15 +107,10 @@ public class Canvas extends JComponent {
 		this.removeMouseMotionListener(listener);
 
 	}
-
-	public boolean getClear() {
-		return clear;
-	}
-
-	public void setClear(boolean clear) {
+	public void setClear(boolean clear){
 		this.clear = clear;
 	}
-
+	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
