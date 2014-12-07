@@ -5,14 +5,14 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
-public class OvalListener implements DrawListener {
+public class FillRectangleListener implements DrawListener {
 	private Canvas canvas;
 	private Point startDrag, endDrag;
 	private int stroke;
 
-	public OvalListener(Canvas canvas) {
+	public FillRectangleListener(Canvas canvas) {
 		this.canvas = canvas;
 		stroke = canvas.getStroke();
 	}
@@ -57,8 +57,10 @@ public class OvalListener implements DrawListener {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		endDrag = new Point(e.getX(), e.getY());
+
 		drawPreview((Graphics2D) canvas.getImage().getGraphics());
 		canvas.repaint();
+
 	}
 
 	@Override
@@ -66,13 +68,16 @@ public class OvalListener implements DrawListener {
 		g.setStroke(new BasicStroke(canvas.getStroke(), BasicStroke.CAP_ROUND,
 				BasicStroke.JOIN_ROUND));
 		g.setColor(canvas.getColor());
-		Shape ellipse = makeEllipse(startDrag.x, startDrag.y, endDrag.x,
+		Shape rectangle = makeRectangle(startDrag.x, startDrag.y, endDrag.x,
 				endDrag.y);
-		g.draw(ellipse);
+		g.fill(rectangle);
 	}
 
-	private Ellipse2D.Double makeEllipse(int x1, int y1, int x2, int y2) {
-		return new Ellipse2D.Double(Math.min(x1, x2), Math.min(y1, y2),
+	private Rectangle2D.Float makeRectangle(int x1, int y1, int x2, int y2) {
+
+		return new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2),
 				Math.abs(x1 - x2), Math.abs(y1 - y2));
+
 	}
+
 }

@@ -8,11 +8,9 @@ public class PencilListener implements DrawListener {
 	private Canvas canvas;
 	private int x1, y1, x2, y2;
 	private int stroke;
-	private Graphics2D g;
 
 	public PencilListener(Canvas canvas) {
 		this.canvas = canvas;
-		g = (Graphics2D) canvas.getImage().getGraphics();
 		stroke = canvas.getStroke();
 
 	}
@@ -20,7 +18,7 @@ public class PencilListener implements DrawListener {
 	public void setPoint(int oldx, int oldy, int newX, int newY) {
 		x2 = newX;
 		y2 = newY;
-		drawPreview(g);
+		drawPreview((Graphics2D) canvas.getImage().getGraphics());
 		x1 = x2;
 		y1 = y2;
 

@@ -2,26 +2,25 @@ package schiffer.paint;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Shape;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 
 public class RectangleListener implements DrawListener {
 	private Canvas canvas;
-	private int x1, y1, x2, y2;
+	private Point startDrag, endDrag;
 	private int stroke;
-	private Graphics2D g;
 
 	public RectangleListener(Canvas canvas) {
 		this.canvas = canvas;
-		g = (Graphics2D) canvas.getImage().getGraphics();
 		stroke = canvas.getStroke();
 
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		x2 = e.getX();
-		y2 = e.getY();
-		drawPreview(g);
+		endDrag = new Point(e.getX(), e.getY());
 		canvas.repaint();
 
 	}
@@ -46,13 +45,15 @@ public class RectangleListener implements DrawListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		x1 = e.getX();
-		y1 = e.getY();
+		startDrag = new Point(e.getX(), e.getY());
+		endDrag = startDrag;
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseReleased(MouseEvent e) {
+		endDrag = new Point(e.getX(), e.getY());
+		drawPreview((Graphics2D) canvas.getImage().getGraphics());
+		canvas.repaint();
 
 	}
 
@@ -67,7 +68,13 @@ public class RectangleListener implements DrawListener {
 		g.setStroke(new BasicStroke(canvas.getStroke(), BasicStroke.CAP_ROUND,
 				BasicStroke.JOIN_ROUND));
 		g.setColor(canvas.getColor());
-		g.drawRect(x1, y1, x2, y2);
+		Shape rectangle = makeRectangle(startDrag.x, startDrag.y, endDrag.x,
+				endDrag.y);
+		g.draw(rectangle);
+	}
 
+	private Rectangle2D.Float makeRectangle(int x1, int y1, int x2, int y2) {
+		return new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2),
+				Math.abs(x1 - x2), Math.abs(y1 - y2));
 	}
 }

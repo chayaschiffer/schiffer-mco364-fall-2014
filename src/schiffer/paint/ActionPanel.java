@@ -49,12 +49,12 @@ public class ActionPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			canvas.removeMouseListener(listener);
-			canvas.removeMouseMotionListener(listener);
-
 			if (e.getSource() == clear) {
 				canvas.resetCanvas();
+				canvas.setClear(true);
+				canvas.setListener(new PencilListener(canvas));
 			} else {
+				canvas.setClear(false);
 				if (e.getSource() == pencil) {
 					listener = new PencilListener(canvas);
 				} else if (e.getSource() == rect) {
@@ -69,8 +69,7 @@ public class ActionPanel extends JPanel {
 				} else if (e.getSource() == drawline) {
 					listener = new DrawLineListener(canvas);
 				}
-				canvas.addMouseListener(listener);
-				canvas.addMouseMotionListener(listener);
+				canvas.setListener(listener);
 			}
 
 		}
