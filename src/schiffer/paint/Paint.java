@@ -48,6 +48,7 @@ public class Paint extends JFrame implements ActionListener {
 				startColor);
 		if (color != null) {
 			canvas.setColor(color);
+			colorButton.setBackground(color);
 			canvas.getColorLabel().setText("COLOR : " + color.toString());
 		}
 	}
