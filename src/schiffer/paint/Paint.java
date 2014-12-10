@@ -33,13 +33,13 @@ public class Paint extends JFrame implements ActionListener {
 		colorStrokePanel.add(canvas.getColorLabel());
 		colorStrokePanel.add(canvas.getStrokeLabel());
 
-		add(colorStrokePanel, BorderLayout.NORTH);
+		add(colorStrokePanel, BorderLayout.SOUTH);
 
 		colorButton = new JButton("Choose a color");
 		colorButton.addActionListener(this);
-		add(colorButton, BorderLayout.SOUTH);
+		add(colorButton, BorderLayout.WEST);
 		buttonPanel = new ActionPanel(canvas);
-		add(buttonPanel, BorderLayout.WEST);
+		add(buttonPanel, BorderLayout.NORTH);
 	}
 
 	public void actionPerformed(ActionEvent e) {

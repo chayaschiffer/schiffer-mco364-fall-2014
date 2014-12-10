@@ -1,6 +1,6 @@
 package schiffer.paint;
 
-import java.awt.GridLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -34,7 +34,7 @@ public class ActionPanel extends JPanel {
 		drawline.addActionListener(new buttonListen());
 		clear = new JButton("CLEAR");
 		clear.addActionListener(new buttonListen());
-		setLayout(new GridLayout(3, 3));
+		setLayout(new FlowLayout());
 		add(pencil);
 		add(oval);
 		add(rect);
