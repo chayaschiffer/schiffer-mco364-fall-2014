@@ -34,6 +34,7 @@ public class Canvas extends JComponent {
 					mousestroke = 1;
 				}
 				stroke = mousestroke;
+				strokeLabel.setText("STROKE : " + stroke);
 			}
 		});
 		colorLabel = new JLabel();
