@@ -1,5 +1,7 @@
 package schiffer.paint.message;
 
+import java.awt.Graphics2D;
+
 public class BucketFillMessage implements PaintMessage{
 		private int x;
 		private int y;

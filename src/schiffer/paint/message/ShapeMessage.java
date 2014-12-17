@@ -1,5 +1,7 @@
 package schiffer.paint.message;
 
+import java.awt.Graphics2D;
+
 public class ShapeMessage implements PaintMessage{
 		private String type;
 		private int x;
