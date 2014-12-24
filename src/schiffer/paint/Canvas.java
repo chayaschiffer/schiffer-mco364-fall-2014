@@ -150,12 +150,13 @@ public class Canvas extends JComponent {
 		super.paintComponent(g);
 		for (int i = 0; i < 4; i++) {
 			g.drawImage(images[i], 0, 0, null);
+			if (layer == i) {
+				if (clear == false) {
+					listener.drawPreview((Graphics2D) g);
+				}
+			}
 		}
 		strokeLabel.setText("STROKE : " + stroke);
-		if (clear == false) {
-			listener.drawPreview((Graphics2D) g);
-		}
-
 	}
 
 }
