@@ -57,10 +57,8 @@ public class FillRectangleListener implements DrawListener {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		endDrag = new Point(e.getX(), e.getY());
-
 		drawPreview((Graphics2D) canvas.getImage().getGraphics());
 		canvas.repaint();
-
 	}
 
 	@Override

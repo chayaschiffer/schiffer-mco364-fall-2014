@@ -9,20 +9,26 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class Canvas extends JComponent {
 
 	private static final long serialVersionUID = 1L;
-	BufferedImage image;
+	BufferedImage[] images;
 	Color color;
 	int stroke;
-	JLabel colorLabel;
 	JLabel strokeLabel;
 	DrawListener listener;
 	boolean clear;
+	int layer;
+	JPanel colorPanel;
 
-	public Canvas() {
-		image = new BufferedImage(1100, 600, BufferedImage.TYPE_INT_ARGB);
+	public Canvas(JPanel colorPanel) {
+		images = new BufferedImage[4];
+		for (int i = 0; i < 4; i++) {
+			images[i] = new BufferedImage(1100, 600, BufferedImage.TYPE_INT_ARGB);
+		}
+		layer = 0;
 		stroke = 1;
 		color = Color.black;
 		setListener(new PencilListener(this));
@@ -37,9 +43,10 @@ public class Canvas extends JComponent {
 				strokeLabel.setText("STROKE : " + stroke);
 			}
 		});
-		colorLabel = new JLabel();
 		strokeLabel = new JLabel();
 		clear = false;
+
+		this.colorPanel = colorPanel;
 	}
 
 	public int getStroke() {
@@ -50,14 +57,6 @@ public class Canvas extends JComponent {
 		this.stroke = stroke;
 	}
 
-	public JLabel getColorLabel() {
-		return colorLabel;
-	}
-
-	public void setColorLabel(JLabel colorLabel) {
-		this.colorLabel = colorLabel;
-	}
-
 	public JLabel getStrokeLabel() {
 		return strokeLabel;
 	}
@@ -66,12 +65,20 @@ public class Canvas extends JComponent {
 		this.strokeLabel = strokeLabel;
 	}
 
+	public BufferedImage[] getImages() {
+		return images;
+	}
+
+	public void setImages(BufferedImage[] images) {
+		this.images = images;
+	}
+
 	public BufferedImage getImage() {
-		return image;
+		return images[layer];
 	}
 
 	public void setImage(BufferedImage image) {
-		this.image = image;
+		this.images[layer] = image;
 	}
 
 	public Color getColor() {
@@ -86,6 +93,21 @@ public class Canvas extends JComponent {
 		return listener;
 	}
 
+	public void setLayer(int layer) {
+		if (layer >= 0 && layer < 4) {
+			this.layer = layer;
+
+		}
+	}
+
+	public int getLayer() {
+		return layer;
+	}
+
+	public void setColorPanel(Color color) {
+		this.colorPanel.setBackground(color);
+	}
+
 	public void setListener(DrawListener listener) {
 		this.removeMouseListener(this.listener);
 		this.removeMouseMotionListener(this.listener);
@@ -95,12 +117,22 @@ public class Canvas extends JComponent {
 	}
 
 	public void resetCanvas() {
-		this.image = new BufferedImage(1100, 600, BufferedImage.TYPE_INT_ARGB);
+		for (int i = 0; i < 4; i++) {
+			images[i] = new BufferedImage(1100, 600, BufferedImage.TYPE_INT_ARGB);
+			repaint();
+		}
 		clear = true;
 		repaint();
 		setListener(new PencilListener(this));
 		setColor(Color.BLACK);
+		colorPanel.setBackground(Color.BLACK);
 		setStroke(1);
+	}
+
+	public void resetLayer() {
+		clear = true;
+		images[layer] = new BufferedImage(1100, 600, BufferedImage.TYPE_INT_ARGB);
+		repaint();
 	}
 
 	public void removeListener() {
@@ -108,18 +140,22 @@ public class Canvas extends JComponent {
 		this.removeMouseMotionListener(listener);
 
 	}
-	public void setClear(boolean clear){
+
+	public void setClear(boolean clear) {
 		this.clear = clear;
 	}
-	
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(image, 0, 0, null);
+		for (int i = 0; i < 4; i++) {
+			g.drawImage(images[i], 0, 0, null);
+		}
 		strokeLabel.setText("STROKE : " + stroke);
 		if (clear == false) {
 			listener.drawPreview((Graphics2D) g);
 		}
+
 	}
 
 }
