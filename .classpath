@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="jetty-all-9.2.4.v20141103.jar"/>
 	<classpathentry exported="true" kind="lib" path="javax.servlet-api-3.1.0.jar"/>
+	<classpathentry kind="lib" path="MultiEchoServer.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
