@@ -17,7 +17,9 @@ public class ActionPanel extends JPanel {
 	JButton fillRect;
 	JButton drawline;
 	JButton clear;
-
+	JButton bucketFill;
+	JButton resetLayer;
+	
 	public ActionPanel(Canvas canvas) {
 		this.canvas = canvas;
 		pencil = new JButton("PENCIL");
@@ -34,6 +36,10 @@ public class ActionPanel extends JPanel {
 		drawline.addActionListener(new buttonListen());
 		clear = new JButton("CLEAR");
 		clear.addActionListener(new buttonListen());
+		bucketFill = new JButton("BUCKET FILL");
+		bucketFill.addActionListener(new buttonListen());
+		resetLayer = new JButton("RESET LAYER");
+		resetLayer.addActionListener(new buttonListen());
 		setLayout(new FlowLayout());
 		add(pencil);
 		add(oval);
@@ -41,7 +47,9 @@ public class ActionPanel extends JPanel {
 		add(fillOval);
 		add(fillRect);
 		add(drawline);
+		add(bucketFill);
 		add(clear);
+		add(resetLayer);
 
 	}
 
@@ -49,11 +57,16 @@ public class ActionPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
 			if (e.getSource() == clear) {
 				canvas.resetCanvas();
-			} else {
+			} else if(e.getSource()==resetLayer){
+				canvas.resetLayer();
+			}else {
 				canvas.setClear(false);
-				if (e.getSource() == pencil) {
+				if(e.getSource() == bucketFill){
+					listener = new BucketFillListener(canvas);
+				} else if (e.getSource() == pencil) {
 					listener = new PencilListener(canvas);
 				} else if (e.getSource() == rect) {
 					listener = new RectangleListener(canvas);
@@ -66,7 +79,9 @@ public class ActionPanel extends JPanel {
 
 				} else if (e.getSource() == drawline) {
 					listener = new DrawLineListener(canvas);
-				}
+				}else if(e.getSource()==bucketFill){
+					listener = new BucketFillListener(canvas);
+				}	
 				canvas.setListener(listener);
 			}
 

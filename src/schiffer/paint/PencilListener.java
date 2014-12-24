@@ -50,9 +50,8 @@ public class PencilListener implements DrawListener {
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
+	public void mouseReleased(MouseEvent e) {
+		
 	}
 
 	@Override
