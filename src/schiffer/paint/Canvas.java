@@ -11,25 +11,22 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import schiffer.paint.message.Client;
+
 public class Canvas extends JComponent {
 
 	private static final long serialVersionUID = 1L;
-	BufferedImage[] images;
+	BufferedImage image;
 	Color color;
 	int stroke;
 	JLabel strokeLabel;
 	DrawListener listener;
 	boolean clear;
-	int layer;
 	JPanel colorPanel;
-	
+	Client client;
+
 	public Canvas(JPanel colorPanel) {
-		images = new BufferedImage[4];
-		for (int i = 0; i < 4; i++) {
-			images[i] = new BufferedImage(1100, 600,
-					BufferedImage.TYPE_INT_ARGB);
-		}
-		layer = 0;
+		image =  new BufferedImage(1100, 600, BufferedImage.TYPE_INT_ARGB);
 		stroke = 1;
 		color = Color.black;
 		setListener(new PencilListener(this));
@@ -48,6 +45,7 @@ public class Canvas extends JComponent {
 		clear = false;
 
 		this.colorPanel = colorPanel;
+		this.client = client;
 	}
 
 	public int getStroke() {
@@ -66,20 +64,12 @@ public class Canvas extends JComponent {
 		this.strokeLabel = strokeLabel;
 	}
 
-	public BufferedImage[] getImages() {
-		return images;
-	}
-
-	public void setImages(BufferedImage[] images) {
-		this.images = images;
-	}
-
 	public BufferedImage getImage() {
-		return images[layer];
+		return image;
 	}
 
 	public void setImage(BufferedImage image) {
-		this.images[layer] = image;
+		this.image = image;
 	}
 
 	public Color getColor() {
@@ -94,16 +84,6 @@ public class Canvas extends JComponent {
 		return listener;
 	}
 
-	public void setLayer(int layer) {
-		if (layer >= 0 && layer < 4) {
-			this.layer = layer;
-
-		}
-	}
-
-	public int getLayer() {
-		return layer;
-	}
 
 	public void setColorPanel(Color color) {
 		this.colorPanel.setBackground(color);
@@ -118,26 +98,16 @@ public class Canvas extends JComponent {
 	}
 
 	public void resetCanvas() {
-		for (int i = 0; i < 4; i++) {
-			images[i] = new BufferedImage(1100, 600,
-					BufferedImage.TYPE_INT_ARGB);
-			repaint();
-		}
-		clear = true;
+		image = new BufferedImage(1100, 600, BufferedImage.TYPE_INT_ARGB);
 		repaint();
+		clear = true;
 		setListener(new PencilListener(this));
 		setColor(Color.BLACK);
 		colorPanel.setBackground(Color.BLACK);
 		setStroke(1);
 	}
 
-	public void resetLayer(){
-		clear = true;
-		images[layer] = new BufferedImage(1100, 600,
-				BufferedImage.TYPE_INT_ARGB);
-		repaint();
-	}
-	
+
 	public void removeListener() {
 		this.removeMouseListener(listener);
 		this.removeMouseMotionListener(listener);
@@ -148,18 +118,19 @@ public class Canvas extends JComponent {
 		this.clear = clear;
 	}
 
+	public Client getClient() {
+		return client;
+	}
 
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for (int i = 0; i < 4; i++) {
-			g.drawImage(images[i], 0, 0, null);
-		}
+		g.drawImage(image, 0, 0, null);
 		strokeLabel.setText("STROKE : " + stroke);
-		if(clear == false){
+		if (clear == false) {
 			listener.drawPreview((Graphics2D) g);
 		}
-	
+
 	}
 
 }

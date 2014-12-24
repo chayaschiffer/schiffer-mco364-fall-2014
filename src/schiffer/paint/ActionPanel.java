@@ -18,7 +18,6 @@ public class ActionPanel extends JPanel {
 	JButton drawline;
 	JButton clear;
 	JButton bucketFill;
-	JButton resetLayer;
 	
 	public ActionPanel(Canvas canvas) {
 		this.canvas = canvas;
@@ -38,8 +37,6 @@ public class ActionPanel extends JPanel {
 		clear.addActionListener(new buttonListen());
 		bucketFill = new JButton("BUCKET FILL");
 		bucketFill.addActionListener(new buttonListen());
-		resetLayer = new JButton("RESET LAYER");
-		resetLayer.addActionListener(new buttonListen());
 		setLayout(new FlowLayout());
 		add(pencil);
 		add(oval);
@@ -49,8 +46,7 @@ public class ActionPanel extends JPanel {
 		add(drawline);
 		add(bucketFill);
 		add(clear);
-		add(resetLayer);
-
+		
 	}
 
 	private class buttonListen implements ActionListener {
@@ -60,9 +56,7 @@ public class ActionPanel extends JPanel {
 			
 			if (e.getSource() == clear) {
 				canvas.resetCanvas();
-			} else if(e.getSource()==resetLayer){
-				canvas.resetLayer();
-			}else {
+			} else {
 				canvas.setClear(false);
 				if(e.getSource() == bucketFill){
 					listener = new BucketFillListener(canvas);

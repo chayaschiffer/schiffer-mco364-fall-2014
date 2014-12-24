@@ -12,17 +12,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import schiffer.paint.message.Client;
+
 public class Paint extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	Canvas canvas;
 	ActionPanel buttonPanel;
-	LayerPanel layerPanel;
 	JPanel panel;
 	JPanel colorPanel;
 	JLabel strokeLabel;
 	JButton colorButton;
-
+	
 	public Paint() {
 		setSize(1000, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,17 +33,16 @@ public class Paint extends JFrame implements ActionListener {
 		colorPanel = new JPanel();
 		colorPanel.setBackground(Color.BLACK);
 		canvas = new Canvas(colorPanel);
+		
 		add(canvas, BorderLayout.CENTER);
 		colorButton = new JButton("Choose a color");
 		colorButton.addActionListener(this);
 
 		strokeLabel = canvas.getStrokeLabel();
-		layerPanel = new LayerPanel(canvas);
-		panel.setLayout(new GridLayout(4, 1));
+		panel.setLayout(new GridLayout(3, 1));
 		panel.add(colorButton);
 		panel.add(colorPanel);
 		panel.add(strokeLabel);
-		panel.add(layerPanel);
 		add(panel, BorderLayout.WEST);
 
 		buttonPanel = new ActionPanel(canvas);
