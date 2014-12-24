@@ -2,39 +2,38 @@ package schiffer.paint.message;
 
 import java.util.Scanner;
 
+import schiffer.paint.Canvas;
+
 public class PaintMessageFactory {
+	private Canvas canvas;
 	
-	public PaintMessage getMessage(String message){
+	public PaintMessageFactory(Canvas canvas){
+		this.canvas = canvas;
+	}
+	
+	public PaintMessage getMessage(String message) {
 		Scanner scanner = new Scanner(message);
-		
+
 		String messageType = scanner.next();
-		
-		switch(messageType){
+		PaintMessage paintMessage = null;
+
+		switch (messageType) {
 		case "LINE":
-			int x1 = scanner.nextInt();
-			int x2 = scanner.nextInt();
-			int y1 = scanner.nextInt();
-			int y2 = scanner.nextInt();
-			int color = scanner.nextInt();
-			int stroke = scanner.nextInt();
-			return new LineMessage(x1, y1, x2, y2, color, stroke);
+			paintMessage = new LineMessage(scanner.nextInt(),
+					scanner.nextInt(), scanner.nextInt(), scanner.nextInt(),
+					scanner.nextInt(), scanner.nextInt());
 		case "SHAPE":
-			String type = scanner.next();
-			int x = scanner.nextInt();
-			int y = scanner.nextInt();
-			int color2 = scanner.nextInt();
-			int stroke2 = scanner.nextInt();
-			return new ShapeMessage(type, x, y, color2, stroke2);
+			paintMessage = new ShapeMessage(messageType, scanner.nextInt(),
+					scanner.nextInt(), scanner.nextInt(), scanner.nextInt(),
+					scanner.nextBoolean(), scanner.nextInt(), scanner.nextInt());
 		case "CLEAR":
+			paintMessage = new ClearMessage(canvas);
 			break;
 		case "BUCKET_FILL":
-			int X = scanner.nextInt();
-			int Y = scanner.nextInt();
-			int color3 = scanner.nextInt();
-			return new BucketFillMessage(X, Y, color3);
-			
+			paintMessage = new BucketFillMessage(scanner.nextInt(),
+					scanner.nextInt(), scanner.nextInt());
+			break;
 		}
-		return null;
+		return paintMessage;
 	}
-}
-                                      
+}                            
