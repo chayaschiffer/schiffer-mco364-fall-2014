@@ -1,17 +1,20 @@
 package schiffer.paint;
 
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.util.Stack;
+import java.io.IOException;
+
+import schiffer.paint.message.BucketFillMessage;
+import schiffer.paint.message.Client;
+import schiffer.paint.message.PaintMessage;
 
 public class BucketFillListener implements DrawListener {
-
 	private Canvas canvas;
+	private Client client;
 
 	public BucketFillListener(Canvas canvas) {
 		this.canvas = canvas;
+		this.client = canvas.getClient();
 	}
 
 	@Override
@@ -28,40 +31,19 @@ public class BucketFillListener implements DrawListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		bucketFill(e.getX(), e.getY());
+		draw(e.getX(), e.getY());
 		canvas.repaint();
 
 	}
 
-	public void bucketFill(int x, int y) {
-		BufferedImage image = canvas.getImage();
-		int replaceColor = canvas.getColor().getRGB();
-		int targetColor = image.getRGB(x, y);
-		if (targetColor != replaceColor) {
-			Stack<Point> stack = new Stack<Point>();
-			stack.push(new Point(x, y));
-			Point point;
-			while (!stack.isEmpty()) {
-				point = stack.pop();
-
-				if (image.getRGB(point.x, point.y) == targetColor) {
-					image.setRGB(point.x, point.y, replaceColor);
-
-					if (point.x + 1 < image.getWidth()) {
-						stack.push(new Point(point.x + 1, point.y));
-					}
-					if (point.x - 1 >= 0) {
-						stack.push(new Point(point.x - 1, point.y));
-					}
-					if (point.y + 1 < image.getHeight()) {
-						stack.push(new Point(point.x, point.y + 1));
-					}
-					if (point.y - 1 >= 0) {
-						stack.push(new Point(point.x, point.y - 1));
-					}
-				}
-			}
+	public void draw(int x, int y) {
+		PaintMessage message = new BucketFillMessage(x, y, canvas);
+		try {
+			client.sendMessage(message.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+
 	}
 
 	@Override

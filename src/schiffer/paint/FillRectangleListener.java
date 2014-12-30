@@ -1,20 +1,24 @@
 package schiffer.paint;
 
-import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Shape;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Rectangle2D;
+import java.io.IOException;
+
+import schiffer.paint.message.Client;
+import schiffer.paint.message.PaintMessage;
+import schiffer.paint.message.ShapeMessage;
 
 public class FillRectangleListener implements DrawListener {
 	private Canvas canvas;
 	private Point startDrag, endDrag;
 	private int stroke;
+	private Client client;
 
 	public FillRectangleListener(Canvas canvas) {
 		this.canvas = canvas;
 		stroke = canvas.getStroke();
+		client = canvas.getClient();
 	}
 
 	@Override
@@ -57,25 +61,24 @@ public class FillRectangleListener implements DrawListener {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		endDrag = new Point(e.getX(), e.getY());
-		drawPreview((Graphics2D) canvas.getImage().getGraphics());
+		draw((Graphics2D) canvas.getImage().getGraphics());
 		canvas.repaint();
+	}
+
+	public void draw(Graphics2D g) {
+		PaintMessage message = new ShapeMessage("RECT", Math.min(startDrag.x, endDrag.x), Math.min(startDrag.y,
+				endDrag.y), Math.abs(endDrag.x - startDrag.x), Math.abs(endDrag.y - startDrag.y), true, canvas
+				.getColor().getRGB(), stroke);
+		try {
+			client.sendMessage(message.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void drawPreview(Graphics2D g) {
-		g.setStroke(new BasicStroke(canvas.getStroke(), BasicStroke.CAP_ROUND,
-				BasicStroke.JOIN_ROUND));
-		g.setColor(canvas.getColor());
-		Shape rectangle = makeRectangle(startDrag.x, startDrag.y, endDrag.x,
-				endDrag.y);
-		g.fill(rectangle);
-	}
-
-	private Rectangle2D.Float makeRectangle(int x1, int y1, int x2, int y2) {
-
-		return new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2),
-				Math.abs(x1 - x2), Math.abs(y1 - y2));
-
+		draw(g);
 	}
 
 }

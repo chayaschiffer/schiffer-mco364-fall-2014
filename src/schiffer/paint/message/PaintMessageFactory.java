@@ -2,15 +2,8 @@ package schiffer.paint.message;
 
 import java.util.Scanner;
 
-import schiffer.paint.Canvas;
-
 public class PaintMessageFactory {
-	private Canvas canvas;
-	
-	public PaintMessageFactory(Canvas canvas){
-		this.canvas = canvas;
-	}
-	
+
 	public PaintMessage getMessage(String message) {
 		Scanner scanner = new Scanner(message);
 
@@ -19,21 +12,18 @@ public class PaintMessageFactory {
 
 		switch (messageType) {
 		case "LINE":
-			paintMessage = new LineMessage(scanner.nextInt(),
-					scanner.nextInt(), scanner.nextInt(), scanner.nextInt(),
+			paintMessage = new LineMessage(scanner.nextInt(), scanner.nextInt(), scanner.nextInt(), scanner.nextInt(),
 					scanner.nextInt(), scanner.nextInt());
 		case "SHAPE":
-			paintMessage = new ShapeMessage(messageType, scanner.nextInt(),
-					scanner.nextInt(), scanner.nextInt(), scanner.nextInt(),
-					scanner.nextBoolean(), scanner.nextInt(), scanner.nextInt());
+			paintMessage = new ShapeMessage(messageType, scanner.nextInt(), scanner.nextInt(), scanner.nextInt(),
+					scanner.nextInt(), scanner.nextBoolean(), scanner.nextInt(), scanner.nextInt());
 		case "CLEAR":
-			paintMessage = new ClearMessage(canvas);
+			paintMessage = new ClearMessage();
 			break;
 		case "BUCKET_FILL":
-			paintMessage = new BucketFillMessage(scanner.nextInt(),
-					scanner.nextInt(), scanner.nextInt());
+			paintMessage = new BucketFillMessage(scanner.nextInt(), scanner.nextInt(), scanner.nextInt());
 			break;
 		}
 		return paintMessage;
 	}
-}                            
+}

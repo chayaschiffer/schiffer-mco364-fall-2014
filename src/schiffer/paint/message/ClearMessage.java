@@ -4,12 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class ClearMessage implements PaintMessage {
-	int width, height;
-
-	public ClearMessage(schiffer.paint.Canvas canvas) {
-		width = canvas.getWidth();
-		height = canvas.getHeight();
-	}
 
 	public String toString() {
 		return "CLEAR\n";
@@ -17,8 +11,9 @@ public class ClearMessage implements PaintMessage {
 
 	@Override
 	public void apply(Graphics2D g) {
-		g.setPaint(Color.WHITE);
-		g.fillRect(0, 0, width, height);
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, 1100, 600);
+		g.setColor(Color.BLACK);
 	}
 
 }

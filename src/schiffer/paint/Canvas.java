@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -26,7 +27,7 @@ public class Canvas extends JComponent {
 	Client client;
 
 	public Canvas(JPanel colorPanel) {
-		image =  new BufferedImage(1100, 600, BufferedImage.TYPE_INT_ARGB);
+		image = new BufferedImage(1100, 600, BufferedImage.TYPE_INT_ARGB);
 		stroke = 1;
 		color = Color.black;
 		setListener(new PencilListener(this));
@@ -45,7 +46,12 @@ public class Canvas extends JComponent {
 		clear = false;
 
 		this.colorPanel = colorPanel;
-		this.client = client;
+		try {
+			this.client = new Client();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public int getStroke() {
@@ -84,6 +90,9 @@ public class Canvas extends JComponent {
 		return listener;
 	}
 
+	public Client getClient() {
+		return client;
+	}
 
 	public void setColorPanel(Color color) {
 		this.colorPanel.setBackground(color);
@@ -107,7 +116,6 @@ public class Canvas extends JComponent {
 		setStroke(1);
 	}
 
-
 	public void removeListener() {
 		this.removeMouseListener(listener);
 		this.removeMouseMotionListener(listener);
@@ -116,10 +124,6 @@ public class Canvas extends JComponent {
 
 	public void setClear(boolean clear) {
 		this.clear = clear;
-	}
-
-	public Client getClient() {
-		return client;
 	}
 
 	@Override

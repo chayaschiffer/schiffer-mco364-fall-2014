@@ -1,18 +1,24 @@
 package schiffer.paint;
 
-import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+
+import schiffer.paint.message.Client;
+import schiffer.paint.message.LineMessage;
+import schiffer.paint.message.PaintMessage;
 
 public class DrawLineListener implements DrawListener {
 	private Canvas canvas;
 	private Point startDrag, endDrag;
 	private int stroke;
+	private Client client;
 
 	public DrawLineListener(Canvas canvas) {
 		this.canvas = canvas;
 		stroke = canvas.getStroke();
+		client = canvas.getClient();
 	}
 
 	@Override
@@ -55,15 +61,23 @@ public class DrawLineListener implements DrawListener {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		endDrag = new Point(e.getX(), e.getY());
-		drawPreview((Graphics2D) canvas.getImage().getGraphics());
+		draw((Graphics2D) canvas.getImage().getGraphics());
 		canvas.repaint();
+	}
+
+	public void draw(Graphics2D g) {
+		PaintMessage message = new LineMessage(startDrag.x, startDrag.y, endDrag.x, endDrag.y, canvas.getColor()
+				.getRGB(), stroke);
+		try {
+			client.sendMessage(message.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void drawPreview(Graphics2D g) {
-		g.setStroke(new BasicStroke(canvas.getStroke(), BasicStroke.CAP_ROUND,
-				BasicStroke.JOIN_ROUND));
-		g.setColor(canvas.getColor());
-		g.drawLine(startDrag.x, startDrag.y, endDrag.x, endDrag.y);
+		draw(g);
+
 	}
 }

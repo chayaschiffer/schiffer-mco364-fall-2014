@@ -12,8 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import schiffer.paint.message.Client;
-
 public class Paint extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -23,7 +21,7 @@ public class Paint extends JFrame implements ActionListener {
 	JPanel colorPanel;
 	JLabel strokeLabel;
 	JButton colorButton;
-	
+
 	public Paint() {
 		setSize(1000, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,7 +31,7 @@ public class Paint extends JFrame implements ActionListener {
 		colorPanel = new JPanel();
 		colorPanel.setBackground(Color.BLACK);
 		canvas = new Canvas(colorPanel);
-		
+
 		add(canvas, BorderLayout.CENTER);
 		colorButton = new JButton("Choose a color");
 		colorButton.addActionListener(this);
@@ -53,8 +51,7 @@ public class Paint extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Color startColor = colorButton.getBackground();
-		Color color = JColorChooser.showDialog(this, "Select a color",
-				startColor);
+		Color color = JColorChooser.showDialog(this, "Select a color", startColor);
 		if (color != null) {
 			canvas.setColor(color);
 			canvas.setColorPanel(color);
