@@ -26,11 +26,16 @@ public class Canvas extends JComponent {
 	JPanel colorPanel;
 	Client client;
 
-	public Canvas(JPanel colorPanel) {
+	public Canvas(JPanel colorPanel){
+		try{
+			this.client = new Client(this);
+		}catch(IOException e){
+			e.printStackTrace();
+		}
 		image = new BufferedImage(1100, 600, BufferedImage.TYPE_INT_ARGB);
 		stroke = 1;
 		color = Color.black;
-		setListener(new PencilListener(this));
+		setListener(new PencilListener(this,client));
 		addMouseWheelListener(new MouseWheelListener() {
 			@Override
 			public void mouseWheelMoved(MouseWheelEvent mwe) {
@@ -46,14 +51,11 @@ public class Canvas extends JComponent {
 		clear = false;
 
 		this.colorPanel = colorPanel;
-		try {
-			this.client = new Client();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
-
+	public Client getClient(){
+		return client;
+	}
 	public int getStroke() {
 		return stroke;
 	}
@@ -90,10 +92,6 @@ public class Canvas extends JComponent {
 		return listener;
 	}
 
-	public Client getClient() {
-		return client;
-	}
-
 	public void setColorPanel(Color color) {
 		this.colorPanel.setBackground(color);
 	}
@@ -110,7 +108,7 @@ public class Canvas extends JComponent {
 		image = new BufferedImage(1100, 600, BufferedImage.TYPE_INT_ARGB);
 		repaint();
 		clear = true;
-		setListener(new PencilListener(this));
+		setListener(new PencilListener(this, client));
 		setColor(Color.BLACK);
 		colorPanel.setBackground(Color.BLACK);
 		setStroke(1);

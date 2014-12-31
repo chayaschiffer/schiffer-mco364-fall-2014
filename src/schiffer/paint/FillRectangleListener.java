@@ -15,10 +15,10 @@ public class FillRectangleListener implements DrawListener {
 	private int stroke;
 	private Client client;
 
-	public FillRectangleListener(Canvas canvas) {
+	public FillRectangleListener(Canvas canvas, Client client) {
 		this.canvas = canvas;
 		stroke = canvas.getStroke();
-		client = canvas.getClient();
+		this.client = client;
 	}
 
 	@Override

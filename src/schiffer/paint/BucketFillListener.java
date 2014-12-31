@@ -12,9 +12,9 @@ public class BucketFillListener implements DrawListener {
 	private Canvas canvas;
 	private Client client;
 
-	public BucketFillListener(Canvas canvas) {
+	public BucketFillListener(Canvas canvas, Client client) {
 		this.canvas = canvas;
-		this.client = canvas.getClient();
+		this.client = client;
 	}
 
 	@Override

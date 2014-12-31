@@ -1,11 +1,8 @@
 package schiffer.paint;
 
-import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Shape;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 
 import schiffer.paint.message.Client;
@@ -18,10 +15,10 @@ public class RectangleListener implements DrawListener {
 	private int stroke;
 	private Client client;
 
-	public RectangleListener(Canvas canvas) {
+	public RectangleListener(Canvas canvas, Client client) {
 		this.canvas = canvas;
 		stroke = canvas.getStroke();
-		client = canvas.getClient();
+		this.client = client;
 	}
 
 	@Override

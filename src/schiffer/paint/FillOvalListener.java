@@ -15,10 +15,10 @@ public class FillOvalListener implements DrawListener {
 	private int stroke;
 	private Client client;
 
-	public FillOvalListener(Canvas canvas) {
+	public FillOvalListener(Canvas canvas, Client client) {
 		this.canvas = canvas;
 		stroke = canvas.getStroke();
-		client = canvas.getClient();
+		this.client = client;
 	}
 
 	@Override

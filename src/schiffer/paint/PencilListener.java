@@ -14,10 +14,10 @@ public class PencilListener implements DrawListener {
 	private int stroke;
 	private Client client;
 
-	public PencilListener(Canvas canvas) {
+	public PencilListener(Canvas canvas, Client client) {
 		this.canvas = canvas;
 		stroke = canvas.getStroke();
-		client = canvas.getClient();
+		this.client =client;
 	}
 
 	public void setPoint(int oldx, int oldy, int newX, int newY) {

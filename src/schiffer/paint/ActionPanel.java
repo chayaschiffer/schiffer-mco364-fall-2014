@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import schiffer.paint.message.Client;
+
 public class ActionPanel extends JPanel {
 	private Canvas canvas;
 	private DrawListener listener;
@@ -18,8 +20,10 @@ public class ActionPanel extends JPanel {
 	JButton drawline;
 	JButton clear;
 	JButton bucketFill;
-	
+	Client client;
+
 	public ActionPanel(Canvas canvas) {
+		this.client = canvas.getClient();
 		this.canvas = canvas;
 		pencil = new JButton("PENCIL");
 		pencil.addActionListener(new buttonListen());
@@ -46,36 +50,36 @@ public class ActionPanel extends JPanel {
 		add(drawline);
 		add(bucketFill);
 		add(clear);
-		
+
 	}
 
 	private class buttonListen implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
 			if (e.getSource() == clear) {
 				canvas.resetCanvas();
 			} else {
 				canvas.setClear(false);
-				if(e.getSource() == bucketFill){
-					listener = new BucketFillListener(canvas);
+				if (e.getSource() == bucketFill) {
+					listener = new BucketFillListener(canvas, client);
 				} else if (e.getSource() == pencil) {
-					listener = new PencilListener(canvas);
+					listener = new PencilListener(canvas, client);
 				} else if (e.getSource() == rect) {
-					listener = new RectangleListener(canvas);
+					listener = new RectangleListener(canvas, client);
 				} else if (e.getSource() == oval) {
-					listener = new OvalListener(canvas);
+					listener = new OvalListener(canvas, client);
 				} else if (e.getSource() == fillOval) {
-					listener = new FillOvalListener(canvas);
+					listener = new FillOvalListener(canvas, client);
 				} else if (e.getSource() == fillRect) {
-					listener = new FillRectangleListener(canvas);
+					listener = new FillRectangleListener(canvas, client);
 
 				} else if (e.getSource() == drawline) {
-					listener = new DrawLineListener(canvas);
-				}else if(e.getSource()==bucketFill){
-					listener = new BucketFillListener(canvas);
-				}	
+					listener = new DrawLineListener(canvas, client);
+				} else if (e.getSource() == bucketFill) {
+					listener = new BucketFillListener(canvas, client);
+				}
 				canvas.setListener(listener);
 			}
 

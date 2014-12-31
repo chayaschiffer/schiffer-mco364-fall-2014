@@ -15,10 +15,10 @@ public class DrawLineListener implements DrawListener {
 	private int stroke;
 	private Client client;
 
-	public DrawLineListener(Canvas canvas) {
+	public DrawLineListener(Canvas canvas, Client client) {
 		this.canvas = canvas;
 		stroke = canvas.getStroke();
-		client = canvas.getClient();
+		this.client = client;
 	}
 
 	@Override

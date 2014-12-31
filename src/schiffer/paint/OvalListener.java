@@ -15,10 +15,10 @@ public class OvalListener implements DrawListener {
 	private int stroke;
 	private Client client;
 
-	public OvalListener(Canvas canvas) {
+	public OvalListener(Canvas canvas, Client client) {
 		this.canvas = canvas;
 		stroke = canvas.getStroke();
-		client = canvas.getClient();
+		this.client = client;
 	}
 
 	@Override

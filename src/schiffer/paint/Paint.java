@@ -5,12 +5,15 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import schiffer.paint.message.Client;
 
 public class Paint extends JFrame implements ActionListener {
 
@@ -31,7 +34,6 @@ public class Paint extends JFrame implements ActionListener {
 		colorPanel = new JPanel();
 		colorPanel.setBackground(Color.BLACK);
 		canvas = new Canvas(colorPanel);
-
 		add(canvas, BorderLayout.CENTER);
 		colorButton = new JButton("Choose a color");
 		colorButton.addActionListener(this);

@@ -16,21 +16,20 @@ public class ClientListener extends Thread {
 	public ClientListener(Socket socket, Canvas canvas) {
 		this.socket = socket;
 		this.canvas = canvas;
-		factory = new PaintMessageFactory();
+		factory = new PaintMessageFactory(canvas);
 	}
 
 	@Override
 	public void run() {
 		try {
-			socket = new Socket("192.168.117.107", 3773);
 			InputStream in = socket.getInputStream();
-
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
 			String line;
 			PaintMessage amessage = null;
 			while ((line = reader.readLine()) != null) {
 				amessage = factory.getMessage(line);
+
 				if (amessage != null) {
 					amessage.apply((Graphics2D) canvas.getImage().getGraphics());
 					canvas.repaint();
