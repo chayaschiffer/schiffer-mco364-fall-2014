@@ -6,5 +6,8 @@
 	<classpathentry kind="lib" path="C:/Users/student1/Documents/javax.servlet-api-3.1.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/student1/Documents/jetty-all-9.2.4.v20141103.jar"/>
 	<classpathentry kind="lib" path="C:/Users/student1/Documents/jetty-quickstart-9.2.4.v20141103.jar"/>
+	<classpathentry kind="lib" path="javax.servlet-api-3.1.0.jar"/>
+	<classpathentry kind="lib" path="jetty-all-9.2.4.v20141103.jar"/>
+	<classpathentry kind="lib" path="jetty-quickstart-9.2.4.v20141103.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
