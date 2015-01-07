@@ -15,16 +15,15 @@ public class FillRectangleListener implements DrawListener {
 	private int stroke;
 	private Client client;
 
-	public FillRectangleListener(Canvas canvas, Client client) {
+	public FillRectangleListener(Canvas canvas) {
 		this.canvas = canvas;
 		stroke = canvas.getStroke();
-		this.client = client;
+		this.client = canvas.getClient();
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		endDrag = new Point(e.getX(), e.getY());
-		canvas.repaint();
 
 	}
 
@@ -55,20 +54,18 @@ public class FillRectangleListener implements DrawListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		startDrag = new Point(e.getX(), e.getY());
-		endDrag = startDrag;
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		endDrag = new Point(e.getX(), e.getY());
 		draw((Graphics2D) canvas.getImage().getGraphics());
-		canvas.repaint();
 	}
 
 	public void draw(Graphics2D g) {
 		PaintMessage message = new ShapeMessage("RECT", Math.min(startDrag.x, endDrag.x), Math.min(startDrag.y,
-				endDrag.y), Math.abs(endDrag.x - startDrag.x), Math.abs(endDrag.y - startDrag.y), true, canvas
-				.getColor().getRGB(), stroke);
+				endDrag.y), Math.abs(endDrag.x - startDrag.x), Math.abs(endDrag.y - startDrag.y), canvas
+				.getColor().getRGB(), stroke, true);
 		try {
 			client.sendMessage(message.toString());
 		} catch (IOException e) {

@@ -15,16 +15,15 @@ public class DrawLineListener implements DrawListener {
 	private int stroke;
 	private Client client;
 
-	public DrawLineListener(Canvas canvas, Client client) {
+	public DrawLineListener(Canvas canvas) {
 		this.canvas = canvas;
 		stroke = canvas.getStroke();
-		this.client = client;
+		this.client = canvas.getClient();
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		endDrag = new Point(e.getX(), e.getY());
-		canvas.repaint();
 
 	}
 
@@ -62,7 +61,6 @@ public class DrawLineListener implements DrawListener {
 	public void mouseReleased(MouseEvent e) {
 		endDrag = new Point(e.getX(), e.getY());
 		draw((Graphics2D) canvas.getImage().getGraphics());
-		canvas.repaint();
 	}
 
 	public void draw(Graphics2D g) {

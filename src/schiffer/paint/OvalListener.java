@@ -15,16 +15,15 @@ public class OvalListener implements DrawListener {
 	private int stroke;
 	private Client client;
 
-	public OvalListener(Canvas canvas, Client client) {
+	public OvalListener(Canvas canvas) {
 		this.canvas = canvas;
 		stroke = canvas.getStroke();
-		this.client = client;
+		this.client = canvas.getClient();
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		endDrag = new Point(e.getX(), e.getY());
-		canvas.repaint();
 
 	}
 
@@ -61,14 +60,13 @@ public class OvalListener implements DrawListener {
 	public void mouseReleased(MouseEvent e) {
 		endDrag = new Point(e.getX(), e.getY());
 		draw((Graphics2D) canvas.getImage().getGraphics());
-		canvas.repaint();
 
 	}
 
 	public void draw(Graphics2D g) {
 		PaintMessage message = new ShapeMessage("OVAL", Math.min(startDrag.x, endDrag.x), Math.min(startDrag.y,
-				endDrag.y), Math.abs(endDrag.x - startDrag.x), Math.abs(endDrag.y - startDrag.y), true, canvas
-				.getColor().getRGB(), stroke);
+				endDrag.y), Math.abs(endDrag.x - startDrag.x), Math.abs(endDrag.y - startDrag.y), canvas
+				.getColor().getRGB(), stroke, false);
 		try {
 			client.sendMessage(message.toString());
 		} catch (IOException e) {

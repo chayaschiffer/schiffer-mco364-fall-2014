@@ -10,11 +10,9 @@ import schiffer.paint.message.PaintMessage;
 
 public class BucketFillListener implements DrawListener {
 	private Canvas canvas;
-	private Client client;
 
-	public BucketFillListener(Canvas canvas, Client client) {
+	public BucketFillListener(Canvas canvas) {
 		this.canvas = canvas;
-		this.client = client;
 	}
 
 	@Override
@@ -32,14 +30,13 @@ public class BucketFillListener implements DrawListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		draw(e.getX(), e.getY());
-		canvas.repaint();
 
 	}
 
 	public void draw(int x, int y) {
-		PaintMessage message = new BucketFillMessage(x, y, canvas);
+		PaintMessage message = new BucketFillMessage(canvas,x, y, canvas.getColor().getRGB());
 		try {
-			client.sendMessage(message.toString());
+			canvas.getClient().sendMessage(message.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

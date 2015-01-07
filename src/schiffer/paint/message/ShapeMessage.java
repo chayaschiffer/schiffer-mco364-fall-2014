@@ -15,7 +15,7 @@ public class ShapeMessage implements PaintMessage {
 	private int stroke;
 
 	public ShapeMessage(String type, int x, int y, int width, int height,
-			boolean fill, int color, int stroke) {
+			int color, int stroke,boolean fill) {
 		this.type = type;
 		this.x = x;
 		this.y = y;
@@ -108,7 +108,7 @@ public class ShapeMessage implements PaintMessage {
 
 	@Override
 	public String toString() {
-		return "SHAPE " + type.toString() + " " + x + " " + y + " " + width + " " + height + " " + fill + " " + color + " " + stroke + "\n";
+		return "SHAPE " + type.toString() + " " + x + " " + y + " " + width + " " + height + " " + color + " " + stroke + " " + fill + "\n";
 	}
 
 	@Override

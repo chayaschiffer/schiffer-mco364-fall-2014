@@ -35,7 +35,7 @@ public class Canvas extends JComponent {
 		image = new BufferedImage(1100, 600, BufferedImage.TYPE_INT_ARGB);
 		stroke = 1;
 		color = Color.black;
-		setListener(new PencilListener(this,client));
+		setListener(new PencilListener(this));
 		addMouseWheelListener(new MouseWheelListener() {
 			@Override
 			public void mouseWheelMoved(MouseWheelEvent mwe) {
@@ -108,7 +108,7 @@ public class Canvas extends JComponent {
 		image = new BufferedImage(1100, 600, BufferedImage.TYPE_INT_ARGB);
 		repaint();
 		clear = true;
-		setListener(new PencilListener(this, client));
+		setListener(new PencilListener(this));
 		setColor(Color.BLACK);
 		colorPanel.setBackground(Color.BLACK);
 		setStroke(1);
@@ -129,9 +129,6 @@ public class Canvas extends JComponent {
 		super.paintComponent(g);
 		g.drawImage(image, 0, 0, null);
 		strokeLabel.setText("STROKE : " + stroke);
-		if (clear == false) {
-			listener.drawPreview((Graphics2D) g);
-		}
 
 	}
 

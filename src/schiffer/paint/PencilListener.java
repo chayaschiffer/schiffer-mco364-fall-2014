@@ -14,10 +14,10 @@ public class PencilListener implements DrawListener {
 	private int stroke;
 	private Client client;
 
-	public PencilListener(Canvas canvas, Client client) {
+	public PencilListener(Canvas canvas) {
 		this.canvas = canvas;
 		stroke = canvas.getStroke();
-		this.client =client;
+		this.client = canvas.getClient();
 	}
 
 	public void setPoint(int oldx, int oldy, int newX, int newY) {
@@ -56,13 +56,12 @@ public class PencilListener implements DrawListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-
+		
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		setPoint(x1, y1, e.getX(), e.getY());
-		canvas.repaint();
 	}
 
 	@Override

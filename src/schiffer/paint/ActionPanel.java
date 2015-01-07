@@ -23,8 +23,8 @@ public class ActionPanel extends JPanel {
 	Client client;
 
 	public ActionPanel(Canvas canvas) {
-		this.client = canvas.getClient();
 		this.canvas = canvas;
+		this.client = canvas.getClient();
 		pencil = new JButton("PENCIL");
 		pencil.addActionListener(new buttonListen());
 		oval = new JButton("OVAL");
@@ -63,22 +63,22 @@ public class ActionPanel extends JPanel {
 			} else {
 				canvas.setClear(false);
 				if (e.getSource() == bucketFill) {
-					listener = new BucketFillListener(canvas, client);
+					listener = new BucketFillListener(canvas);
 				} else if (e.getSource() == pencil) {
-					listener = new PencilListener(canvas, client);
+					listener = new PencilListener(canvas);
 				} else if (e.getSource() == rect) {
-					listener = new RectangleListener(canvas, client);
+					listener = new RectangleListener(canvas);
 				} else if (e.getSource() == oval) {
-					listener = new OvalListener(canvas, client);
+					listener = new OvalListener(canvas);
 				} else if (e.getSource() == fillOval) {
-					listener = new FillOvalListener(canvas, client);
+					listener = new FillOvalListener(canvas);
 				} else if (e.getSource() == fillRect) {
-					listener = new FillRectangleListener(canvas, client);
+					listener = new FillRectangleListener(canvas);
 
 				} else if (e.getSource() == drawline) {
-					listener = new DrawLineListener(canvas, client);
+					listener = new DrawLineListener(canvas);
 				} else if (e.getSource() == bucketFill) {
-					listener = new BucketFillListener(canvas, client);
+					listener = new BucketFillListener(canvas);
 				}
 				canvas.setListener(listener);
 			}

@@ -24,15 +24,15 @@ public class PaintMessageFactory {
 		case "SHAPE":
 			paintMessage = new ShapeMessage(String.valueOf(messagePieces[1]), Integer.parseInt(messagePieces[2]),
 					Integer.parseInt(messagePieces[3]), Integer.parseInt(messagePieces[4]),
-					Integer.parseInt(messagePieces[5]), Boolean.valueOf(messagePieces[6]),
-					Integer.parseInt(messagePieces[7]), Integer.parseInt(messagePieces[8]));
+					Integer.parseInt(messagePieces[5]),Integer.parseInt(messagePieces[6]), Integer.parseInt(messagePieces[7]),
+					Boolean.valueOf(messagePieces[8]));
 			break;
 		case "CLEAR":
 			paintMessage = new ClearMessage();
 			break;
 		case "BUCKET_FILL":
-			paintMessage = new BucketFillMessage(Integer.parseInt(messagePieces[1]),
-					Integer.parseInt(messagePieces[2]), canvas);
+			paintMessage = new BucketFillMessage(canvas, Integer.parseInt(messagePieces[1]),
+					Integer.parseInt(messagePieces[2]), Integer.parseInt(messagePieces[3]));
 			break;
 		}
 		return paintMessage;
