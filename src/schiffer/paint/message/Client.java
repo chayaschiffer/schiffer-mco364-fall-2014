@@ -13,7 +13,8 @@ public class Client extends Thread {
 	private ClientListener listener;
 	
 	public Client(Canvas canvas) throws IOException {
-		socket = new Socket("192.168.117.107", 3773);
+		//socket = new Socket("192.168.117.107", 3773);
+		socket = new Socket("127.0.0.1", 3773);
 		out = socket.getOutputStream();
 		listener = new ClientListener(socket,canvas);
 		listener.start();

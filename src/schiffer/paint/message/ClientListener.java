@@ -28,7 +28,8 @@ public class ClientListener extends Thread {
 			String line;
 			PaintMessage amessage = null;
 			while ((line = reader.readLine()) != null) {
-				amessage = factory.getMessage(line);
+			System.out.println(line.toString());
+			amessage = factory.getMessage(line);
 
 				if (amessage != null) {
 					amessage.apply((Graphics2D) canvas.getImage().getGraphics());
