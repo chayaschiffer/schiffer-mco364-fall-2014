@@ -2,11 +2,10 @@ package schiffer.paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.net.ConnectException;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -25,12 +24,16 @@ public class Canvas extends JComponent {
 	boolean clear;
 	JPanel colorPanel;
 	Client client;
+	NetworkModule module;
 
-	public Canvas(JPanel colorPanel){
-		try{
+	public Canvas(JPanel colorPanel) {
+		try {
 			this.client = new Client(this);
-		}catch(IOException e){
-			e.printStackTrace();
+			module = new OnlineNetworkModule(client);
+		} catch (Exception e) {
+			if (e instanceof ConnectException) {
+				module = new LoopbackNetworkModule(this);
+			}
 		}
 		image = new BufferedImage(1100, 600, BufferedImage.TYPE_INT_ARGB);
 		stroke = 1;
@@ -51,11 +54,17 @@ public class Canvas extends JComponent {
 		clear = false;
 
 		this.colorPanel = colorPanel;
-		
+
 	}
-	public Client getClient(){
+
+	public Client getClient() {
 		return client;
 	}
+
+	public NetworkModule getModule() {
+		return module;
+	}
+
 	public int getStroke() {
 		return stroke;
 	}

@@ -3,22 +3,17 @@ package schiffer.paint;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 
-import schiffer.paint.message.Client;
 import schiffer.paint.message.PaintMessage;
 import schiffer.paint.message.ShapeMessage;
 
 public class OvalListener implements DrawListener {
 	private Canvas canvas;
 	private Point startDrag, endDrag;
-	private int stroke;
-	private Client client;
 
 	public OvalListener(Canvas canvas) {
 		this.canvas = canvas;
-		stroke = canvas.getStroke();
-		this.client = canvas.getClient();
+
 	}
 
 	@Override
@@ -64,14 +59,12 @@ public class OvalListener implements DrawListener {
 	}
 
 	public void draw(Graphics2D g) {
-		PaintMessage message = new ShapeMessage("OVAL", Math.min(startDrag.x, endDrag.x), Math.min(startDrag.y,
-				endDrag.y), Math.abs(endDrag.x - startDrag.x), Math.abs(endDrag.y - startDrag.y), canvas
-				.getColor().getRGB(), stroke, false);
-		try {
-			client.sendMessage(message.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		PaintMessage message = new ShapeMessage("OVAL", Math.min(startDrag.x,
+				endDrag.x), Math.min(startDrag.y, endDrag.y),
+				Math.abs(endDrag.x - startDrag.x), Math.abs(endDrag.y
+						- startDrag.y), canvas.getColor().getRGB(),
+				canvas.getStroke(), false);
+		canvas.getModule().sendMessage(message);
 
 	}
 

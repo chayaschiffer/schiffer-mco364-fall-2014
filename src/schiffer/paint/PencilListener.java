@@ -2,22 +2,16 @@ package schiffer.paint;
 
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 
-import schiffer.paint.message.Client;
 import schiffer.paint.message.LineMessage;
 import schiffer.paint.message.PaintMessage;
 
 public class PencilListener implements DrawListener {
 	private Canvas canvas;
 	private int x1, y1, x2, y2;
-	private int stroke;
-	private Client client;
 
 	public PencilListener(Canvas canvas) {
 		this.canvas = canvas;
-		stroke = canvas.getStroke();
-		this.client = canvas.getClient();
 	}
 
 	public void setPoint(int oldx, int oldy, int newX, int newY) {
@@ -56,7 +50,7 @@ public class PencilListener implements DrawListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		
+
 	}
 
 	@Override
@@ -71,12 +65,9 @@ public class PencilListener implements DrawListener {
 	}
 
 	public void draw(Graphics2D g) {
-		PaintMessage message = new LineMessage(x1, y1, x2, y2, canvas.getColor().getRGB(), stroke);
-		try {
-			client.sendMessage(message.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		PaintMessage message = new LineMessage(x1, y1, x2, y2, canvas
+				.getColor().getRGB(), canvas.getStroke());
+		canvas.getModule().sendMessage(message);
 	}
 
 	@Override

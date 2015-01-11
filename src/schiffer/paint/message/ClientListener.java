@@ -23,13 +23,14 @@ public class ClientListener extends Thread {
 	public void run() {
 		try {
 			InputStream in = socket.getInputStream();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(in));
 
 			String line;
 			PaintMessage amessage = null;
 			while ((line = reader.readLine()) != null) {
-			System.out.println(line.toString());
-			amessage = factory.getMessage(line);
+				System.out.println(line.toString());
+				amessage = factory.getMessage(line);
 
 				if (amessage != null) {
 					amessage.apply((Graphics2D) canvas.getImage().getGraphics());

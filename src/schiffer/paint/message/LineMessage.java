@@ -69,10 +69,10 @@ public class LineMessage implements PaintMessage {
 		this.stroke = stroke;
 	}
 
-	
 	@Override
 	public String toString() {
-		return "LINE " + x1 + " " + y1 + " " + x2 + " " + y2 + " " + color + " " + stroke + "\n";
+		return "LINE " + x1 + " " + y1 + " " + x2 + " " + y2 + " " + color
+				+ " " + stroke + "\n";
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class LineMessage implements PaintMessage {
 		g.setStroke(new BasicStroke(stroke, BasicStroke.CAP_ROUND,
 				BasicStroke.JOIN_ROUND));
 		g.setColor(new Color(color));
-		
+
 		g.drawLine(x1, y1, x2, y2);
 	}
 }

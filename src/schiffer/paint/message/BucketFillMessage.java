@@ -14,12 +14,12 @@ public class BucketFillMessage implements PaintMessage {
 	private int color;
 	private Canvas canvas;
 
-	public BucketFillMessage( Canvas canvas,int x, int y,int color) {
+	public BucketFillMessage(Canvas canvas, int x, int y, int color) {
 		this.canvas = canvas;
 		this.x = x;
 		this.y = y;
 		this.color = canvas.getColor().getRGB();
-		
+
 	}
 
 	public int getX() {

@@ -2,10 +2,8 @@ package schiffer.paint;
 
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 
 import schiffer.paint.message.BucketFillMessage;
-import schiffer.paint.message.Client;
 import schiffer.paint.message.PaintMessage;
 
 public class BucketFillListener implements DrawListener {
@@ -34,12 +32,9 @@ public class BucketFillListener implements DrawListener {
 	}
 
 	public void draw(int x, int y) {
-		PaintMessage message = new BucketFillMessage(canvas,x, y, canvas.getColor().getRGB());
-		try {
-			canvas.getClient().sendMessage(message.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		PaintMessage message = new BucketFillMessage(canvas, x, y, canvas
+				.getColor().getRGB());
+		canvas.getModule().sendMessage(message);
 
 	}
 

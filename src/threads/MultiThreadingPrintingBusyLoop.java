@@ -12,7 +12,7 @@ public class MultiThreadingPrintingBusyLoop {
 			threads[i] = new Thread() {
 				public void run() {
 					System.out.println(current);
-					latch.countDown();
+				//	latch.countDown();
 				}
 			};
 			threads[i].start();
