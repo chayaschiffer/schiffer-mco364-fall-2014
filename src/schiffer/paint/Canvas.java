@@ -113,16 +113,6 @@ public class Canvas extends JComponent {
 		this.addMouseMotionListener(listener);
 	}
 
-	public void resetCanvas() {
-		image = new BufferedImage(1100, 600, BufferedImage.TYPE_INT_ARGB);
-		repaint();
-		clear = true;
-		setListener(new PencilListener(this));
-		setColor(Color.BLACK);
-		colorPanel.setBackground(Color.BLACK);
-		setStroke(1);
-	}
-
 	public void removeListener() {
 		this.removeMouseListener(listener);
 		this.removeMouseMotionListener(listener);

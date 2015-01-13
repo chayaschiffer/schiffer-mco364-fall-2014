@@ -13,7 +13,6 @@ public class ClearMessage implements PaintMessage {
 	public void apply(Graphics2D g) {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, 1100, 600);
-		g.setColor(Color.BLACK);
 	}
 
 }

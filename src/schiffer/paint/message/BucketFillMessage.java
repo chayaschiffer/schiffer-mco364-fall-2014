@@ -18,7 +18,7 @@ public class BucketFillMessage implements PaintMessage {
 		this.canvas = canvas;
 		this.x = x;
 		this.y = y;
-		this.color = canvas.getColor().getRGB();
+		this.color = color;
 
 	}
 

@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import schiffer.paint.message.ClearMessage;
 import schiffer.paint.message.Client;
 
 public class ActionPanel extends JPanel {
@@ -59,7 +60,8 @@ public class ActionPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 
 			if (e.getSource() == clear) {
-				canvas.resetCanvas();
+				canvas.setClear(true);
+				canvas.getModule().sendMessage(new ClearMessage());
 			} else {
 				canvas.setClear(false);
 				if (e.getSource() == bucketFill) {
