@@ -11,7 +11,8 @@ public class ClearMessage implements PaintMessage {
 
 	@Override
 	public void apply(Graphics2D g) {
-		g.setColor(Color.WHITE);
+		Color originalBackground = new Color(238,238,238);
+		g.setColor(originalBackground);
 		g.fillRect(0, 0, 1100, 600);
 	}
 
