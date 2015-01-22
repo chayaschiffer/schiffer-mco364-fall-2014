@@ -29,7 +29,6 @@ public class ClientListener extends Thread {
 			String line;
 			PaintMessage amessage = null;
 			while ((line = reader.readLine()) != null) {
-				System.out.println(line.toString());
 				amessage = factory.getMessage(line);
 
 				if (amessage != null) {

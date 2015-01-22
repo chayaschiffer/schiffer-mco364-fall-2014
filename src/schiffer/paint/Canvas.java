@@ -2,6 +2,7 @@ package schiffer.paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
@@ -128,7 +129,7 @@ public class Canvas extends JComponent {
 		super.paintComponent(g);
 		g.drawImage(image, 0, 0, null);
 		strokeLabel.setText("STROKE : " + stroke);
-
+		listener.drawPreview((Graphics2D) g);
 	}
 
 }

@@ -1,5 +1,7 @@
 package schiffer.paint;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -18,7 +20,7 @@ public class RectangleListener implements DrawListener {
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		endDrag = new Point(e.getX(), e.getY());
-
+		canvas.repaint();
 	}
 
 	@Override
@@ -68,7 +70,12 @@ public class RectangleListener implements DrawListener {
 
 	@Override
 	public void drawPreview(Graphics2D g) {
-		draw(g);
+		g.setStroke(new BasicStroke(canvas.getStroke(), BasicStroke.CAP_ROUND,
+				BasicStroke.JOIN_ROUND));
+		g.setColor(new Color(canvas.getColor().getRGB()));
+		g.drawRect(Math.min(startDrag.x, endDrag.x), Math.min(startDrag.y, endDrag.y),
+				Math.abs(startDrag.x - endDrag.x),
+				Math.abs(startDrag.y - endDrag.y));
 	}
 
 }
